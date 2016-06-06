@@ -27,11 +27,12 @@ int main(){
     std::cout<<*tempNode<<std::endl;
 
     for(auto v = adjStart;v!=adjEnd;++v) {
-      //std::cout<<*v<<std::endl;
-      q.push(graph[*v]); 
+      std::cout<<*v<<std::endl;
+      //q.push(graph[*v]); 
     }
-    tempNode = q.front();
-    q.pop();
+    break;
+    //tempNode = q.front();
+    //q.pop();
   }
   boost::write_graphviz(std::cout,graph);
   return 0;
