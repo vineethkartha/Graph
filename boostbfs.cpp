@@ -5,10 +5,8 @@
 #include<boost/graph/graphviz.hpp>
 #include<boost/graph/breadth_first_search.hpp>
 
-class custom_visitor : public boost::default_bfs_visitor {
-public:
-  template<typename Vertex,typename Graph>
-  void discover_verted(Vertex v,const Graph &g) const {
+struct  custom_visitor : public boost::default_bfs_visitor {
+  void discover_verted(boost::adjacency_list<>::vertex_descriptor v,const boost::adjacency_list<>  &g) const {
     std::cout<<v<<std::endl;
   }
 };
