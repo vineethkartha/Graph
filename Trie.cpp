@@ -53,6 +53,7 @@ public:
   void printGraph(std::ofstream&);
   std::vector<vertex_desc> search(const std::string& );
   int autofill(const std::string&);
+  void dfsautofill(const std::string&);
 };
 
 /*********************************************
@@ -157,7 +158,7 @@ int Trie::autofill(const std::string& str) {
     boost::depth_first_search(graph, boost::visitor(visit).root_vertex(visit.root));
   }
   catch(int e){
-    std::cout<<"\n\nover\n\n";
+    //std::cout<<"\n\nover\n\n";
   }
   if(!(words.empty()) ) {
     for(auto w : words) {
@@ -165,8 +166,27 @@ int Trie::autofill(const std::string& str) {
       temp = std::accumulate(begin(w),end(w),temp);
       std::cout<<"\n"<<str<<temp;
     }
+    std::cout<<"\n";
   }
   return 0;
+}
+
+/*
+start at a vertex
+if visited == 0
+  mark its visited as 1;
+  find the adjacent vertices
+  if no adjacent vertices mark its visited as 2
+  if there are adjacent vertices take first pass it to the same function
+
+if visited ==1
+  find adjacent vertices
+  find adjacent vertex whose visited is !=2
+
+ */
+
+void dfsautofill(const std::string& str) {
+
 }
 
 int main() {
