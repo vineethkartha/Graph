@@ -1,28 +1,19 @@
 #include<iostream>
 #include<boost/graph/adjacency_list.hpp>
-#include<boost/graphviz.hpp>
+#include<boost/graph/graphviz.hpp>
+#include <boost/graph/connected_components.hpp>
 
+typedef boost::adjacency_list<> boostGraph;
 
-typedef boost::adjacency_list<> graph;
-typedef graph::vertex_iterator vIterator;
-typedef graph::edge_iterator eIterator;
+typedef boostGraph::vertex_iterator vIterator;
+typedef boostGraph::edge_iterator eIterator;
 
-class custom_visitor:public default_dfs_visitor {
-  int count;
-public:
-  void custom_visitor() {
-    count = 0;
-  }
-  void discover_vertex(vDescriptor v, const graph&g) {
-    ++count;
-  }
-  int getCount() const{
-    return count;
-  }
-};
+typedef boostGraph::vertex_descriptor vDescriptor;
+typedef boostGraph::edge_descriptor eDescriptor;
+
 
 class Graph {
-  graph G;
+  boostGraph graph;
   eIterator start,end;
 
 public:
@@ -49,10 +40,21 @@ void Graph::printGraph(std::ofstream &file) {
 }
 
 void Graph::findBridge() {
+  /**
 
+1) take an edge and find num of connected components.
+2) remove that edge and again find number of components
+3) If the above two numbers are the same then the edge is not a a bridge
+4) Proceed untill all edges are checked.
+  */
+  std::vector<int> component (boost::num_vertices (graph));
+  int s = boost::connected_components(graph,&component[0]);
+  std::cout<<"The count is: "<<s<<std::endl;
 }
 
 int main() {
-
+  Graph g;
+  g.readGraph();
+  g.findBridge();
   return 0;
 }
